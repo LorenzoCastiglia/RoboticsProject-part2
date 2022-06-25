@@ -3,12 +3,12 @@
 #include "nav_msgs/Odometry.h"
 #include <tf2_ros/transform_broadcaster.h>
 
-class odom_tf {
+class odomTf {
 
 public:
 
-  odom_tf() {
-  	odomSub = n.subscribe("/odom", 1000, &odom_tf::transformCallback, this);
+  odomTf() {
+  	odomSub = n.subscribe("/odom", 1000, &odomTf::transformCallback, this);
   }
 
   void transformCallback(const nav_msgs::Odometry::ConstPtr &msg){
@@ -40,8 +40,8 @@ private:
 };
 
 int main(int argc, char **argv) {
-  ros::init(argc, argv, "odom_tf");
-  odom_tf tfBroadcaster;
+  ros::init(argc, argv, "odomTf");
+  odomTf tfBroadcaster;
   ros::spin();
   return 0;
 }
