@@ -11,5 +11,8 @@
 <!-- **************  scan_merger **************  -->
   <include file="$(find project_2)/launch/scan_merger.launch"/>
 
+  <!--  **************** Visualisation ****************  -->
+<node name="rviz" pkg="rviz" type="rviz" args="-d $(find project_2)/rviz/config.rviz"/>
+
 </launch>
 
