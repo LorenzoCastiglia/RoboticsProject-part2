@@ -3,7 +3,7 @@
  
   <!-- Name of the map to use and initial position -->
   <arg name="map_file"       default="$(find project_2)/maps/map.yaml"/> 
-  <arg name="world_file"     default="$(find project_2)/maps/stage/map.world"/>
+  <arg name="world_file"     default="$(find project_2)/maps/map.pgm"/>
   <arg name="initial_pose_x" default="0.0"/>
   <arg name="initial_pose_y" default="0.0"/>
   <arg name="initial_pose_a" default="0.0"/>
@@ -14,34 +14,8 @@
   <param name="/use_sim_time" value="true"/>
 
 
- <!--  ***************** Robot simulation *****************  -->
-  <node pkg="stage_ros" type="stageros" name="stageros" args="$(arg world_file)">
-    <param name="base_watchdog_timeout" value="0.5"/>
-    <remap from="base_scan" to="scan"/>
-  </node>
-
-
-
-
-  <!--  ************** Navigation  ***************  -->
-   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
-    <rosparam file="$(find project_2)/cfg/costmap_common_params.yaml" command="load" ns="global_costmap" />
-    <rosparam file="$(find project_2)/cfg/costmap_common_params.yaml" command="load" ns="local_costmap" />   
-    <rosparam file="$(find project_2)/cfg/local_costmap_params.yaml" command="load" />   
-    <rosparam file="$(find project_2)/cfg/global_costmap_params.yaml" command="load" />
-    <rosparam file="$(find project_2)/cfg/dwa_local_planner_params.yaml" command="load" />
-    <rosparam file="$(find project_2)/cfg/move_base_params.yaml" command="load" /> 
-
-    <param name="base_global_planner" value="navfn/NavfnROS" />  <!--   planner  navfn/NavfnROS alternative  carrot_planner/CarrotPlanner -->
-    <param name="planner_frequency" value="1.0" />
-    <param name="planner_patience" value="5.0" /> <!-- How long the planner will wait in seconds in an attempt to find a valid plan before space-clearing operations are performed.  -->
-
-    <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
-    <param name="controller_frequency" value="5.0" />
-    <param name="controller_patience" value="5.0" /> <!-- How long the controller will wait in seconds without receiving a valid control before space-clearing operations are performed.  -->
-
-    <param name="clearing_rotation_allowed" value="true"/> 
-  </node>
+  <!--  ************** add odom tf  ***************  -->
+  <node pkg="project_2" type="odomTf" respawn="false" name="odomTf" output="screen"/>
 
 
   <!--  ****** Maps *****  -->
@@ -65,5 +39,5 @@
 
 
   <!--  **************** Visualisation ****************  -->
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find nav2d_conf)/rviz/robot_navigation.rviz"/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find project_2)/rviz/config.rviz"/>
 </launch>

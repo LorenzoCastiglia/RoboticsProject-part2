@@ -3,16 +3,15 @@
   <param name="/use_sim_time" value="true"/>
 
   <!--  ************** add odom tf  ***************  -->
-   <node pkg="project_2" type="odomTf" respawn="false" name="odomTf" output="screen"/>
+  <node pkg="project_2" type="odomTf" respawn="false" name="odomTf" output="screen"/>
 
- <!-- Gmapping -->
+  <!--  **************  Gmapping  **************  -->
   <include file="$(find project_2)/launch/gmapping.launch.xml"/>
 
-<!-- **************  scan_merger **************  -->
+  <!-- **************  scan_merger  **************  -->
   <include file="$(find project_2)/launch/scan_merger.launch"/>
 
-  <!--  **************** Visualisation ****************  -->
-<node name="rviz" pkg="rviz" type="rviz" args="-d $(find project_2)/rviz/config.rviz"/>
+  <!--  ****************  Visualisation  ****************  -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find project_2)/rviz/config.rviz"/>
 
 </launch>
-
